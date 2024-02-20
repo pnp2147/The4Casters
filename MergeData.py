@@ -47,13 +47,29 @@ def merge_syracuse():
 
     return syr_master
 
+def merge_rem_data():
+    print("Adding 1965-1972 data for Syracuse and Rochester")
+    master = pd.read_csv("Master.csv", dtype=str)
+    syr1 = pd.read_csv("1965to1969_Syracuse.csv", dtype=str)
+    syr2 = pd.read_csv("1970to1972_Syracuse.csv", dtype=str)
+    syr3 = pd.read_csv("1973to1974_Syracuse.csv", dtype=str)
+    roc1 = pd.read_csv("1965to1969_Rochester.csv", dtype=str)
+    roc2 = pd.read_csv("1970to1972_Rochester.csv",dtype=str)
+    roc3 = pd.read_csv("1973to1975_Rochester.csv", dtype=str)
+
+    new_master = pd.concat([master, syr1, syr2, syr3, roc1, roc2, roc3])
+
+    return new_master
+
 def main():
-    syracuse = merge_syracuse()
-    buffalo = merge_buffalo()
-    rochester = merge_rochester()
-    print("Merging all files. . .")
-    master = pd.concat([syracuse, buffalo, rochester])
-    master.to_csv("MasterData.csv", index=False)
+    #syracuse = merge_syracuse()
+    #buffalo = merge_buffalo()
+    #rochester = merge_rochester()
+    #print("Merging all files. . .")
+    #master = pd.concat([syracuse, buffalo, rochester])
+    new_master = merge_rem_data()
+    #master.to_csv("MasterData.csv", index=False)
+    new_master.to_csv("NewMaster.csv", index=False)
     print("Merge Complete.")
 
 main()
